@@ -1,4 +1,4 @@
-package broadcast
+package local
 
 import (
 	"context"
@@ -34,7 +34,7 @@ var (
 	ErrBroadcastSendBadSize = fmt.Errorf("broadcast message size must be > 0B and  <= %dB", MaxUDPPacketSize)
 )
 
-// Broadcast implements Seeker with local network broadcasting with IPv4 broadcasting
+// Broadcast implements Seeker with local network broadcasting via IPv4 broadcasting
 type Broadcast struct {
 	listenAddr *net.UDPAddr
 	bcastIPs   []net.IP
@@ -66,7 +66,10 @@ func NewBroadcast(listenAddr *net.UDPAddr, bcastIPs []net.IP) (b *Broadcast, err
 	return
 }
 
-// Listen for incoming Send requests from other Broadcast implementations
+// Listen for incoming Send requests from other Broadcast implementations.
+// It is very likely that if this instance is listening on the same broadcast IP as one that
+// it is also sending from, that it will receive what it is sent. It is up to the user to
+// decide whether or not they care about receiving messages they are also sending.
 func (b *Broadcast) Listen(ctx context.Context, msgChan chan<- []byte) error {
 	b.lconnLock.Lock()
 	defer b.lconnLock.Unlock()

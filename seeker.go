@@ -1,3 +1,4 @@
+// Package discovery provides discovery interfaces to find other users of discovery on networks.
 package discovery
 
 import "context"
