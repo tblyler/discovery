@@ -1,5 +1,6 @@
 # Discovery
 [![Documentation](https://godoc.org/gitlab.com/tblyler/discovery?status.svg)](https://godoc.org/gitlab.com/tblyler/discovery)
+
 `discovery` is a pure [Go](https://golang.org) library to provide simple abstractions to discover other hosts on networks.
 
 ## Documentation
